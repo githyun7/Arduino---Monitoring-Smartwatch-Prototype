@@ -27,10 +27,7 @@ This prototype was designed to explore how wearable monitoring systems could sup
 
 ## Demo
 
-<!-- Put your BEST OLED close-up photo here -->
-<!-- Recommended: normal Sensor Monitor screen photo -->
-
-![Sensor Monitor OLED]
+![Sensor Monitor OLED](images/sensor-monitor.jpg)
 
 The OLED display shows real-time environmental readings for temperature, sound, and light.
 

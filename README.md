@@ -45,8 +45,48 @@ If an environmental condition remains outside the threshold range for a sustaine
 
 The Grove button allows the user to acknowledge an alert and return to the live sensor monitor screen.
 
-## Alert Examples
+## System Architecture
 
 ```text
+Temperature Sensor
+        │
+Sound Sensor
+        │
+Light Sensor
+        │
+        ▼
+Arduino + Grove Base Shield
+        │
+        ▼
+Sensor Value Processing
+        │
+        ▼
+Threshold + Timing Filter Logic
+        │
+        ▼
+OLED Display Update
+        │
+        ├── Normal Mode: Sensor Monitor
+        │
+        └── Alert Mode: Warning Message
+        │
+        ▼
+Grove Button Acknowledgment
+        │
+        ▼
+Return to Sensor Monitor
+```
+
+Example alert flow:
+```text
+Light Level Increases
+        ↓
+Sensor Reading Exceeds Threshold
+        ↓
+Condition Stays High for Set Time
+        ↓
+Alert Generated → "LIGHT TOO BRIGHT"
+        ↓
+OLED Displays:
 ALERT!
-TEMP TOO HIGH
+LIGHT TOO BRIGHT

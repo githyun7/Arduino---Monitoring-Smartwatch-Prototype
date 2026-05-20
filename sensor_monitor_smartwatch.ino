@@ -45,17 +45,15 @@ void setup() {
 
 void loop() {
   int tempRaw  = analogRead(tempPin);
-  int soundRaw = analogRead(soundPin);
   int lightRaw = analogRead(lightPin);
 
   float voltage = tempRaw * (5.0 / 1023.0);
   float temperatureC = (voltage - 0.5) * 100.0;
 
-  int soundPercent = map(soundRaw, 0, 1023, 0, 100);
   int lightPercent = map(lightRaw, 0, 1023, 0, 100);
-
-  soundPercent = constrain(soundPercent, 0, 100);
   lightPercent = constrain(lightPercent, 0, 100);
+
+  int soundPercent = readSoundRMSPercent();
 
   String detectedAlert = getAlertMessage(temperatureC, soundPercent, lightPercent);
 
@@ -74,6 +72,34 @@ void loop() {
   }
 
   delay(100);
+}
+
+int readSoundRMSPercent() {
+  const int sampleCount = 80;
+
+  long sum = 0;
+  int samples[sampleCount];
+
+  for (int i = 0; i < sampleCount; i++) {
+    samples[i] = analogRead(soundPin);
+    sum += samples[i];
+    delayMicroseconds(500);
+  }
+
+  float average = sum / (float)sampleCount;
+
+  float squareSum = 0;
+  for (int i = 0; i < sampleCount; i++) {
+    float centeredValue = samples[i] - average;
+    squareSum += centeredValue * centeredValue;
+  }
+
+  float rms = sqrt(squareSum / sampleCount);
+
+  int soundPercent = map((int)rms, 0, 120, 0, 100);
+  soundPercent = constrain(soundPercent, 0, 100);
+
+  return soundPercent;
 }
 
 String getAlertMessage(float tempC, int soundPercent, int lightPercent) {
@@ -182,11 +208,9 @@ void drawSensorMonitor(float tempC, int soundPercent, int lightPercent) {
 void drawAlert(String message) {
   u8g2.clearBuffer();
 
-  // White alert box
   u8g2.setDrawColor(1);
   u8g2.drawBox(10, 18, 108, 34);
 
-  // Black text inside white box
   u8g2.setDrawColor(0);
   u8g2.setFont(u8g2_font_7x14_tf);
 

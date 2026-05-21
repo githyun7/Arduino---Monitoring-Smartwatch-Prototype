@@ -27,11 +27,11 @@ This prototype was designed to explore how wearable monitoring systems could sup
 
 ## Demo
 
-The OLED display shows real-time environmental readings for temperature, sound, and light.
+The OLED display shows live environmental readings for temperature, sound, and light before the alert timing filter is triggered.
 
 ![Sensor Monitor OLED](images/sensor-monitor.jpg)
 
-When a sensor value stays above or below the threshold for a set amount of time, the OLED switches to an alert screen.
+When a sensor value remains outside the threshold range for a sustained period, the OLED switches to an alert screen.
 
 ![Alert OLED](images/alert-screen.jpg)
 

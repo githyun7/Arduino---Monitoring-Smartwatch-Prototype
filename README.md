@@ -27,13 +27,13 @@ This prototype was designed to explore how wearable monitoring systems could sup
 
 ## Demo
 
-![Sensor Monitor OLED](images/sensor-monitor.jpg)
-
 The OLED display shows real-time environmental readings for temperature, sound, and light.
 
-![Alert OLED](images/alert-screen.jpg)
+![Sensor Monitor OLED](images/sensor-monitor.jpg)
 
 When a sensor value stays above or below the threshold for a set amount of time, the OLED switches to an alert screen.
+
+![Alert OLED](images/alert-screen.jpg)
 
 This early hardware prototype uses Grove modules and an Arduino sensor shield to validate the sensing logic, OLED interface, and button-based alert acknowledgment before miniaturization.
 
